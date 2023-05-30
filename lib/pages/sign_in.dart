@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -8,6 +9,12 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPage extends State<SignInPage> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _birthController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  String _gender = '';
+
   // Initially password is obscure
   bool _passwordVisible = false;
 
@@ -23,8 +30,8 @@ class _SignInPage extends State<SignInPage> {
       appBar: AppBar(
         title: const Text('Cadastro'),
         backgroundColor: Colors.deepOrange,
+        centerTitle: true,
       ),
-      drawer: const Drawer(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -50,6 +57,9 @@ class _SignInPage extends State<SignInPage> {
                         child: SizedBox(
                           width: 350,
                           child: TextFormField(
+                            keyboardType: TextInputType.name,
+                            controller: _nameController,
+                            maxLength: 20,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Nome',
@@ -68,8 +78,6 @@ class _SignInPage extends State<SignInPage> {
                               color: Colors.black,
                               fontSize: generalFont,
                             ),
-                            keyboardType: TextInputType.text,
-                            maxLength: 20,
                           ),
                         ),
                       ),
@@ -83,6 +91,9 @@ class _SignInPage extends State<SignInPage> {
                         child: SizedBox(
                           width: 350,
                           child: TextFormField(
+                            keyboardType: TextInputType.datetime,
+                            controller: _birthController,
+                            maxLength: 10,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Data de Nascimento',
@@ -101,8 +112,6 @@ class _SignInPage extends State<SignInPage> {
                               color: Colors.black,
                               fontSize: generalFont,
                             ),
-                            keyboardType: TextInputType.datetime,
-                            maxLength: 10,
                           ),
                         ),
                       ),
@@ -116,6 +125,9 @@ class _SignInPage extends State<SignInPage> {
                         child: SizedBox(
                           width: 350,
                           child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _emailController,
+                            maxLength: 10,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'E-mail',
@@ -134,7 +146,6 @@ class _SignInPage extends State<SignInPage> {
                               color: Colors.black,
                               fontSize: generalFont,
                             ),
-                            keyboardType: TextInputType.emailAddress,
                           ),
                         ),
                       ),
@@ -151,7 +162,9 @@ class _SignInPage extends State<SignInPage> {
                         child: SizedBox(
                           width: 350,
                           child: TextFormField(
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.visiblePassword,
+                            controller: _passController,
+                            maxLength: 10,
                             obscureText:
                                 !_passwordVisible, //This will obscure text dynamically
                             decoration: InputDecoration(
@@ -182,7 +195,6 @@ class _SignInPage extends State<SignInPage> {
                               color: Colors.black,
                               fontSize: generalFont,
                             ),
-                            maxLength: 20,
                           ),
                         ),
                       ),
@@ -203,8 +215,10 @@ class _SignInPage extends State<SignInPage> {
                         Spacer(),
                         Radio(
                           value: 'm',
-                          groupValue: _selecionado(),
-                          onChanged: (Object? value) {},
+                          groupValue: _gender,
+                          onChanged: (String? value) {
+                            _gender = value!;
+                          },
                         ),
                         Text(
                           'Masculino',
@@ -216,8 +230,10 @@ class _SignInPage extends State<SignInPage> {
                         Spacer(),
                         Radio(
                           value: 'f',
-                          groupValue: _selecionado(),
-                          onChanged: (Object? value) {},
+                          groupValue: _gender,
+                          onChanged: (String? value) {
+                            _gender = value!;
+                          },
                         ),
                         Text(
                           'Feminino',
@@ -298,6 +314,7 @@ class _SignInPage extends State<SignInPage> {
                               Colors.deepOrange),
                         ),
                         onPressed: () {
+                          _saveData();
                           Navigator.of(context).pop();
                         },
                         child: Text('Registrar',
@@ -339,20 +356,24 @@ class _SignInPage extends State<SignInPage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Minha conta',
-          ),
-        ],
-      ),
     );
+  }
+  _saveData() async {
+    final prefs = await SharedPreferences.getInstance();
+    String name = _nameController.text;
+    await prefs.setString("name", name);
+
+    String birth = _birthController.text;
+    await prefs.setString("birth", birth);
+
+    String email = _emailController.text;
+    await prefs.setString("email", email);
+
+    String pass = _passController.text;
+    await prefs.setString("pass", pass);
+
+    String gender = _gender;
+    await prefs.setString("gender", gender);
   }
 }
 
-_selecionado() {}

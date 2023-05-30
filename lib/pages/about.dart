@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lddm_projects/pages/sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class AboutPage extends StatefulWidget {
+  const AboutPage({super.key});
 
   @override
-  _HomePage createState() => _HomePage();
+  _AboutPage createState() => _AboutPage();
 }
 
-class _HomePage extends State<HomePage> {
+class _AboutPage extends State<AboutPage> {
 
   @override
   Widget build(BuildContext context) {
