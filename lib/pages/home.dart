@@ -28,31 +28,9 @@ class _HomePage extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-        backgroundColor: Colors.deepOrange,
-      ),
-      drawer: const Drawer(),
-      body: Container(
-        child: Center(
-          child: Text('Bem vindo, $_name'),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: Colors.deepOrange,
-            ),
-            label: 'Minha conta',
-          ),
-        ],
+    return Container(
+      child: Center(
+        child: Text('Bem vindo, $_name'),
       ),
     );
   }

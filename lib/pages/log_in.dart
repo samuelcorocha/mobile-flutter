@@ -3,6 +3,7 @@ import 'package:lddm_projects/pages/sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home.dart';
+import 'menu.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -153,7 +154,7 @@ class _LoginPage extends State<LoginPage> {
                     width: 300,
                     child: ElevatedButton(
                       onPressed: () async {
-                        _loadData();
+                        await _loadData();
                         if (_emailController.text == _email &&
                             _passController.text == _pass) {
                           Navigator.push(
@@ -161,11 +162,6 @@ class _LoginPage extends State<LoginPage> {
                             MaterialPageRoute(builder: (context) => HomePage()),
                           );
                         } else {
-                          print(_emailController.text);
-                          print(_email);
-                          print(_passController.text);
-                          print(_pass);
-
                           print("Usuário/Senha inválidos!");
                         }
                       },
@@ -191,7 +187,7 @@ class _LoginPage extends State<LoginPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignInPage()),
+                        MaterialPageRoute(builder: (context) => MenuPage()),
                       );
                     },
                     child: const Text(
