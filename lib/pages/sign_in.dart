@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lddm_projects/pages/log_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
@@ -23,6 +24,24 @@ class _SignInPage extends State<SignInPage> {
   bool notifEmail = true;
   bool notifWpp = true;
   bool showPass = false;
+
+  _saveData() async {
+    final prefs = await SharedPreferences.getInstance();
+    String name = _nameController.text;
+    await prefs.setString("name", name);
+
+    String birth = _birthController.text;
+    await prefs.setString("birth", birth);
+
+    String email = _emailController.text;
+    await prefs.setString("email", email);
+
+    String pass = _passController.text;
+    await prefs.setString("pass", pass);
+
+    String gender = _gender;
+    await prefs.setString("gender", gender);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +146,6 @@ class _SignInPage extends State<SignInPage> {
                           child: TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailController,
-                            maxLength: 10,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'E-mail',
@@ -164,7 +182,7 @@ class _SignInPage extends State<SignInPage> {
                           child: TextFormField(
                             keyboardType: TextInputType.visiblePassword,
                             controller: _passController,
-                            maxLength: 10,
+                            maxLength: 20,
                             obscureText:
                                 !_passwordVisible, //This will obscure text dynamically
                             decoration: InputDecoration(
@@ -217,7 +235,9 @@ class _SignInPage extends State<SignInPage> {
                           value: 'm',
                           groupValue: _gender,
                           onChanged: (String? value) {
-                            _gender = value!;
+                            setState(() {
+                              _gender = value!;
+                            });
                           },
                         ),
                         Text(
@@ -232,7 +252,9 @@ class _SignInPage extends State<SignInPage> {
                           value: 'f',
                           groupValue: _gender,
                           onChanged: (String? value) {
-                            _gender = value!;
+                            setState(() {
+                              _gender = value!;
+                            });
                           },
                         ),
                         Text(
@@ -315,7 +337,7 @@ class _SignInPage extends State<SignInPage> {
                         ),
                         onPressed: () {
                           _saveData();
-                          Navigator.of(context).pop();
+                          Navigator.pop(context);
                         },
                         child: Text('Registrar',
                             style: TextStyle(fontSize: generalFont))),
@@ -358,22 +380,4 @@ class _SignInPage extends State<SignInPage> {
       ),
     );
   }
-  _saveData() async {
-    final prefs = await SharedPreferences.getInstance();
-    String name = _nameController.text;
-    await prefs.setString("name", name);
-
-    String birth = _birthController.text;
-    await prefs.setString("birth", birth);
-
-    String email = _emailController.text;
-    await prefs.setString("email", email);
-
-    String pass = _passController.text;
-    await prefs.setString("pass", pass);
-
-    String gender = _gender;
-    await prefs.setString("gender", gender);
-  }
 }
-

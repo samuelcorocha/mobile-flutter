@@ -21,9 +21,17 @@ class _LoginPage extends State<LoginPage> {
   String _email = '';
   String _pass = '';
 
+  _loadData() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      _email = prefs.getString("email") ?? "Sem valor";
+      _pass = prefs.getString("pass") ?? "Sem valor";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    _loadData();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Log In'),
@@ -144,13 +152,20 @@ class _LoginPage extends State<LoginPage> {
                   SizedBox(
                     width: 300,
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_emailController.text == _email && _passController.text == _pass) {
+                      onPressed: () async {
+                        _loadData();
+                        if (_emailController.text == _email &&
+                            _passController.text == _pass) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePage()),
                           );
                         } else {
+                          print(_emailController.text);
+                          print(_email);
+                          print(_passController.text);
+                          print(_pass);
+
                           print("Usuário/Senha inválidos!");
                         }
                       },
@@ -193,13 +208,5 @@ class _LoginPage extends State<LoginPage> {
         ),
       ),
     );
-  }
-  _loadData() async{
-    final prefs = await SharedPreferences.getInstance();
-
-    setState(() {
-      _email = prefs.getString("name") ?? "Sem valor";
-      _pass = prefs.getString("pass") ?? "Sem valor";
-    });
   }
 }
