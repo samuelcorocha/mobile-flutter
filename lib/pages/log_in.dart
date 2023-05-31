@@ -96,13 +96,13 @@ class _LoginPage extends State<LoginPage> {
                         controller: _passController,
                         decoration: InputDecoration(
                           labelText: 'Senha',
-                          labelStyle: TextStyle(color: Colors.deepOrange),
+                          labelStyle: const TextStyle(color: Colors.deepOrange),
                           filled: true,
                           fillColor: Colors.white,
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.deepOrange),
                           ),
                           suffixIcon: IconButton(
@@ -159,17 +159,18 @@ class _LoginPage extends State<LoginPage> {
                             _passController.text == _pass) {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
+                            MaterialPageRoute(
+                                builder: (context) => const MenuPage()),
                           );
                         } else {
                           print("Usuário/Senha inválidos!");
                         }
                       },
-                      style: ButtonStyle(
+                      style: const ButtonStyle(
                         backgroundColor:
                             MaterialStatePropertyAll<Color>(Colors.deepOrange),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Confirmar',
                         style: TextStyle(
                           color: Colors.white,
@@ -187,7 +188,8 @@ class _LoginPage extends State<LoginPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MenuPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const SignInPage()),
                       );
                     },
                     child: const Text(

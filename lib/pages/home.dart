@@ -28,9 +28,10 @@ class _HomePage extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Bem vindo, $_name'),
+    return Center(
+      child: Text(
+        'Bem vindo, $_name',
+        style: TextStyle(color: Colors.black, fontSize: 14),
       ),
     );
   }

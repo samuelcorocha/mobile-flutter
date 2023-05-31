@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lddm_projects/pages/profile.dart';
-import 'package:lddm_projects/pages/data_base.dart';
+import 'package:lddm_projects/pages/database.dart';
 import 'package:lddm_projects/pages/sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +19,8 @@ class _MenuPage extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Menu'),
+        centerTitle: true,
         backgroundColor: Colors.deepOrange,
       ),
       drawer: const Drawer(),
